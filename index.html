@@ -46,37 +46,35 @@
         }
 
         .hidden {
-            display: none;
-            /* Скрыть элемент по умолчанию */
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
         }
 
         #hello {
             font-size: 3vw;
             color: #fff;
-            animation: appear 2s ease-out;
-            /* Анимация появления текста */
+            text-align: center;
+            white-space: pre-wrap;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeText 20s linear forwards;
         }
 
-        @keyframes appear {
+        @keyframes fadeText {
             0% {
-                transform: scale(0);
-                /* Начальный размер текста (нулевой) */
                 opacity: 0;
-                /* Начальная прозрачность (нулевая) */
             }
 
-            50% {
-                transform: scale(1.5);
-                /* Увеличиваем размер текста до 1.5 */
-                opacity: 0.5;
-                /* Увеличиваем прозрачность до 0.5 */
+            2% {
+                opacity: 1;
+            }
+
+            98% {
+                opacity: 1;
             }
 
             100% {
-                transform: scale(1);
-                /* Конечный размер текста (оригинальный) */
-                opacity: 1;
-                /* Конечная прозрачность (полная) */
+                opacity: 0;
             }
         }
 
@@ -92,20 +90,7 @@
 
 <body>
     <!-- Элемент с текстом "Привет" -->
-    <div id="hello" class="hidden">Пиздец тебе хахах</div>
-
-    <script>
-        // Получаем элемент "Привет"
-        const helloElement = document.getElementById('hello');
-
-        // Появление текста "Привет" по центру экрана
-        helloElement.classList.remove('hidden');
-
-        // Исчезновение текста "Привет" через 5 секунд
-        setTimeout(() => {
-            helloElement.classList.add('hidden');
-        }, 5000);
-    </script>
+    <div id="hello" class="hidden"></div>
 
     <!-- Создаем звезды -->
     <script>
@@ -123,6 +108,35 @@
         }
 
         setInterval(createStar, 100);
+    </script>
+
+    <script>
+        const text = `Хочу поздравить тебя с Днем рождения и хочу сказать, что сегодня особый день) ты как воплощение красоты, доброты и мудрости, и каждый год сколько я тебя знаю ты становишься только ярче и прекраснее.
+Твоя улыбка как луч солнца))) проникающий сквозь облака в серые будни, озаряя мою жизнь своим теплом.
+Я хочу сказать тебе, как бесконечно благодарен за твое присутствие в моей жизни. Ты делаешь мир лучше только своим существованием.
+С днем рождения, пусть каждый момент этого дня и следующих дней будет наполнен счастьем и радостью, пусть мечты сбываются легче, чем перышко на ветру, а твоя жизнь продолжает расцветать, словно самый красивый сад весеннего утра, я смогу тебе в этом помочь)
+Надеюсь мои слова донесут тепло моего сердца и наполняют твое счастливое существование.`;
+
+        const helloElement = document.getElementById('hello');
+
+        function animateText(text) {
+            let words = text.split(' ');
+            let index = 0;
+            let interval = setInterval(function () {
+                if (index < words.length) {
+                    helloElement.innerText += words[index] + ' ';
+                    index++;
+                } else {
+                    clearInterval(interval);
+                    setTimeout(function () {
+                        helloElement.classList.add('hidden');
+                    }, 3000); // Исчезает через 3 секунды
+                }
+            }, 300); // 300 миллисекунд между словами
+        }
+
+        helloElement.classList.remove('hidden');
+        animateText(text);
     </script>
 </body>
 
