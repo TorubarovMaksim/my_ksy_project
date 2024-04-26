@@ -46,8 +46,8 @@
         }
 
         .hidden {
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
+            display: none;
+            /* Скрыть элемент по умолчанию */
         }
 
         #hello {
@@ -57,7 +57,7 @@
             white-space: pre-wrap;
             overflow: hidden;
             opacity: 0;
-            animation: fadeText 20s linear forwards;
+            animation: fadeText 60s linear forwards;
         }
 
         @keyframes fadeText {
